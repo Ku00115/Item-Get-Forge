@@ -2,7 +2,7 @@
 
 Item Get! is a configurable reminder mod for Minecraft 1.20.1 on Forge. Inspired by Nintendo's item acquisition presentation in *The Legend of Zelda: Breath of the Wild*, it lets modpack authors create cinematic first-time and milestone notifications through an in-game visual editor.
 
-This repository contains the Forge edition. The NeoForge 1.21.1 edition is maintained as a separate repository and release.
+This repository contains the Forge edition. The NeoForge 1.21.1 edition is maintained in [Item-Get-NeoForge](https://github.com/Ku00115/Item-Get-NeoForge) with separate releases.
 
 ## Features
 
