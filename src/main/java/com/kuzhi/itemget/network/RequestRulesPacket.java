@@ -17,7 +17,9 @@ public record RequestRulesPacket() {
             if (ctx.getSender() != null) ItemGetNetwork.CHANNEL.send(PacketDistributor.PLAYER.with(ctx::getSender),
                     new SyncRulesPacket(RuleJson.write(RuleStore.get(ctx.getSender().serverLevel()).rules()), ctx.getSender().hasPermissions(2),
                             ctx.getSender().serverLevel().registryAccess().registryOrThrow(Registries.BIOME).keySet().stream().map(Object::toString).sorted().collect(Collectors.joining("\n")),
-                            ctx.getSender().serverLevel().registryAccess().registryOrThrow(Registries.STRUCTURE).keySet().stream().map(Object::toString).sorted().collect(Collectors.joining("\n"))));
+                            ctx.getSender().serverLevel().registryAccess().registryOrThrow(Registries.STRUCTURE).keySet().stream().map(Object::toString).sorted().collect(Collectors.joining("\n")),
+                            ctx.getSender().serverLevel().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).entrySet().stream().map(e -> e.getKey().location() + "\t" + e.getValue().msgId()).sorted().collect(Collectors.joining("\n")),
+                            ctx.getSender().server.getAdvancements().getAllAdvancements().stream().map(a -> a.getId() + "\t" + (a.getDisplay() == null ? a.getId().toString() : a.getDisplay().getTitle().getString())).sorted().collect(Collectors.joining("\n"))));
         });
         ctx.setPacketHandled(true);
     }
