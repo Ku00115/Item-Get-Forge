@@ -6,7 +6,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public final class ItemGetNetwork {
-    private static final String VERSION = "5";
+    private static final String VERSION = "6";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation.fromNamespaceAndPath(ItemGet.MOD_ID, "main"), () -> VERSION, VERSION::equals, VERSION::equals);
 
@@ -20,11 +20,14 @@ public final class ItemGetNetwork {
         CHANNEL.registerMessage(id++, SyncHistoryPacket.class, SyncHistoryPacket::encode, SyncHistoryPacket::decode, SyncHistoryPacket::handle);
         CHANNEL.registerMessage(id++, RequestUiLayoutPacket.class, RequestUiLayoutPacket::encode, RequestUiLayoutPacket::decode, RequestUiLayoutPacket::handle);
         CHANNEL.registerMessage(id++, SaveUiLayoutPacket.class, SaveUiLayoutPacket::encode, SaveUiLayoutPacket::decode, SaveUiLayoutPacket::handle);
-        CHANNEL.registerMessage(id, SyncUiLayoutPacket.class, SyncUiLayoutPacket::encode, SyncUiLayoutPacket::decode, SyncUiLayoutPacket::handle);
+        CHANNEL.registerMessage(id++, SyncUiLayoutPacket.class, SyncUiLayoutPacket::encode, SyncUiLayoutPacket::decode, SyncUiLayoutPacket::handle);
+        CHANNEL.registerMessage(id++, SyncObserverRulesPacket.class, SyncObserverRulesPacket::encode, SyncObserverRulesPacket::decode, SyncObserverRulesPacket::handle);
+        CHANNEL.registerMessage(id, TriggerObservedPacket.class, TriggerObservedPacket::encode, TriggerObservedPacket::decode, TriggerObservedPacket::handle);
     }
 
     public static void requestRules() { CHANNEL.sendToServer(new RequestRulesPacket()); }
     public static void requestHistory() { CHANNEL.sendToServer(new RequestHistoryPacket()); }
     public static void requestUiLayout() { CHANNEL.sendToServer(new RequestUiLayoutPacket()); }
     public static void saveUiLayout(int x, int y) { CHANNEL.sendToServer(new SaveUiLayoutPacket(x, y)); }
+    public static void triggerObserved(String ruleId) { CHANNEL.sendToServer(new TriggerObservedPacket(ruleId)); }
 }
