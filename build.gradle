@@ -115,6 +115,10 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
+    maven {
+        name = "Jared's Maven"
+        url = "https://maven.blamejared.com/"
+    }
 
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:flat_dir_resolver
@@ -136,6 +140,8 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     implementation "javazoom:jlayer:1.0.1"
     shade "javazoom:jlayer:1.0.1"
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:15.21.0.144")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:15.21.0.144")
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
